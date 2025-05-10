@@ -1,0 +1,68 @@
+package com.jaychou.admin.controller;
+
+
+import com.jaychou.component.RedisComponent;
+import com.jaychou.entity.constants.Constants;
+import com.jaychou.entity.dto.TokenUserInfoDto;
+import com.jaychou.entity.vo.ResponseVO;
+import com.jaychou.exception.BusinessException;
+import com.jaychou.service.UserInfoService;
+import com.wf.captcha.ArithmeticCaptcha;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 用户信息表 Controller
+ */
+@RestController
+@RequestMapping("/account")
+@Validated
+public class AccountController extends ABaseController {
+    @Resource
+    private UserInfoService userInfoService;
+    @Resource
+    private RedisComponent redisComponent;
+
+    @RequestMapping("/checkCode")
+    public ResponseVO checkCode() {
+        ArithmeticCaptcha captcha = new ArithmeticCaptcha(100, 42);
+        String code = captcha.text();
+        String checkCodeKey = redisComponent.saveCheckCode(code);
+        String checkCodebase64 = captcha.toBase64();
+        Map<String, String> result = new HashMap<>();
+        result.put("checkCodebase64", checkCodebase64);
+        result.put("checkCodeKey", checkCodeKey);
+        return getSuccessResponseVO(result);
+    }
+
+
+    @RequestMapping("/login")
+    public ResponseVO login(HttpServletResponse httpServletResponse,
+                            @NotEmpty String account,
+                            @NotEmpty String password,
+                            @NotEmpty String checkCodeKey,
+                            @NotEmpty String checkCode) {
+        try {
+            if(!checkCode.equalsIgnoreCase(redisComponent.getCheckCode(checkCodeKey))){
+                throw new BusinessException("图片验证码不正确");
+            }
+            String ipAddr = getIpAddr();
+         TokenUserInfoDto tokenUserInfoDto =  userInfoService.login(email, password,ipAddr);
+         saveToken2Cookies(httpServletResponse,tokenUserInfoDto.getToken());
+            return getSuccessResponseVO(tokenUserInfoDto);
+        }finally {
+            redisComponent.cleanCheckCode(checkCodeKey);
+        }
+    }
+
+}

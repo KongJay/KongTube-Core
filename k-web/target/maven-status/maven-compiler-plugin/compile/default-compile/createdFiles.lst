@@ -1,0 +1,4 @@
+com\jaychou\web\controller\AGlobalExceptionHandlerController.class
+com\jaychou\web\KongHubWebRunApplication.class
+com\jaychou\web\controller\AccountController.class
+com\jaychou\web\controller\ABaseController.class
