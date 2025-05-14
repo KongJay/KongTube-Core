@@ -1,4 +1,4 @@
-package com.jaychou.config;
+package com.jaychou.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

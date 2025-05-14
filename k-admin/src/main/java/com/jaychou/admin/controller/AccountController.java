@@ -2,11 +2,10 @@ package com.jaychou.admin.controller;
 
 
 import com.jaychou.component.RedisComponent;
-import com.jaychou.entity.constants.Constants;
-import com.jaychou.entity.dto.TokenUserInfoDto;
+import com.jaychou.config.AppConfig;
 import com.jaychou.entity.vo.ResponseVO;
 import com.jaychou.exception.BusinessException;
-import com.jaychou.service.UserInfoService;
+import com.jaychou.utils.StringTools;
 import com.wf.captcha.ArithmeticCaptcha;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,10 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,10 +24,11 @@ import java.util.Map;
 @RequestMapping("/account")
 @Validated
 public class AccountController extends ABaseController {
-    @Resource
-    private UserInfoService userInfoService;
+
     @Resource
     private RedisComponent redisComponent;
+    @Resource
+    private AppConfig appConfig;
 
     @RequestMapping("/checkCode")
     public ResponseVO checkCode() {
@@ -53,16 +50,22 @@ public class AccountController extends ABaseController {
                             @NotEmpty String checkCodeKey,
                             @NotEmpty String checkCode) {
         try {
-            if(!checkCode.equalsIgnoreCase(redisComponent.getCheckCode(checkCodeKey))){
+            if (!checkCode.equalsIgnoreCase(redisComponent.getCheckCode(checkCodeKey))) {
                 throw new BusinessException("图片验证码不正确");
             }
-            String ipAddr = getIpAddr();
-         TokenUserInfoDto tokenUserInfoDto =  userInfoService.login(email, password,ipAddr);
-         saveToken2Cookies(httpServletResponse,tokenUserInfoDto.getToken());
-            return getSuccessResponseVO(tokenUserInfoDto);
-        }finally {
+            if (!account.equals(appConfig.getAccount()) || !password.equals(StringTools.encodeByMd5(appConfig.getPassword()))) {
+                throw new BusinessException("账号或密码不正确");
+            }
+            String token = redisComponent.saveTokenInfo4Admin(account);
+            saveToken2Cookies(httpServletResponse, token);
+            return getSuccessResponseVO(account);
+        } finally {
             redisComponent.cleanCheckCode(checkCodeKey);
         }
     }
-
+    @RequestMapping("/logout")
+    public ResponseVO logout(HttpServletResponse httpServletResponse) {
+        cleanCookies(httpServletResponse);
+        return getSuccessResponseVO(null);
+    }
 }

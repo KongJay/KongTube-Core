@@ -83,7 +83,7 @@ public class AccountController extends ABaseController {
     }
     @RequestMapping("/autoLogin")
     public ResponseVO autoLogin(HttpServletResponse httpServletResponse) {
-        TokenUserInfoDto tokenUserInfoDto = getTokenUserInfoDto();
+        TokenUserInfoDto tokenUserInfoDto = getTokenInfoDto();
         if(tokenUserInfoDto == null){
             return getSuccessResponseVO("null");
         }

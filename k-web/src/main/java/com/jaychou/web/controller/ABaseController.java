@@ -93,10 +93,10 @@ public class ABaseController {
         cookie.setMaxAge(Constants.TIME_SECONDS_DAY * DAY_NUMBER);
         response.addCookie(cookie);
     }
-    protected TokenUserInfoDto getTokenUserInfoDto() {
+    protected TokenUserInfoDto getTokenInfoDto() {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String token = request.getHeader(Constants.TOKEN_WEB);
-        return redisComponent.getTokenUserInfo(token);
+        return redisComponent.getTokenInfo(token);
     }
     protected void cleanCookies(HttpServletResponse response) {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();

@@ -1,4 +1,4 @@
-package com.jaychou.web.controller;
+package com.jaychou.controller;
 
 
 import com.jaychou.entity.enums.ResponseCodeEnum;
@@ -17,8 +17,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
 
 @RestControllerAdvice
-public class AGlobalExceptionHandlerController extends ABaseController {
+public class AGlobalExceptionHandlerController {
 
+
+    private static final String STATUC_ERROR = "error";
     private static final Logger logger = LoggerFactory.getLogger(AGlobalExceptionHandlerController.class);
 
     @ExceptionHandler(value = Exception.class)

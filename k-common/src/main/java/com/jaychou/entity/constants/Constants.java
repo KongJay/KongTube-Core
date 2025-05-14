@@ -21,5 +21,7 @@ public class Constants {
     public static final String REDIS_KEY_PREFIX = "konghub:";
     public static final String REDIS_KEY_CHECK_CODE= REDIS_KEY_PREFIX+"checkCode:";
     public static final String REDIS_KEY_TOKEN_WEB = REDIS_KEY_CHECK_CODE+"token:web:";
+    public static final String REDIS_KEY_TOKEN_ADMIN = REDIS_KEY_CHECK_CODE+"token:admin:";
     public static final String TOKEN_WEB = "token";
+    public static final String TOKEN_ADMIN = "adminToken";
 }

@@ -3668,7 +3668,7 @@ java.lang.NullPointerException: Cannot invoke "javax.script.ScriptEngine.eval(St
 2025-05-08 15:29:41 [DEBUG][io.netty.buffer.AbstractByteBuf][<clinit>][63]-> -Dio.netty.buffer.checkAccessible: true
 2025-05-08 15:29:41 [DEBUG][io.netty.buffer.AbstractByteBuf][<clinit>][64]-> -Dio.netty.buffer.checkBounds: true
 2025-05-08 15:29:41 [DEBUG][io.netty.util.ResourceLeakDetectorFactory][newResourceLeakDetector][196]-> Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@366ecb25
-2025-05-08 15:29:41 [ERROR][com.jaychou.config.RedisUtils][setex][79]-> 设置redisKey:konghub:checkCode:879851f0-f4d5-41cb-90f5-db167ea83ddc,value:10失败
+2025-05-08 15:29:41 [ERROR][com.jaychou.utils.RedisUtils][setex][79]-> 设置redisKey:konghub:checkCode:879851f0-f4d5-41cb-90f5-db167ea83ddc,value:10失败
 2025-05-08 15:29:41 [DEBUG][org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor][writeWithMessageConverters][268]-> Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json, application/x-jackson-smile, application/cbor]
 2025-05-08 15:29:41 [DEBUG][org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor][traceDebug][120]-> Writing [com.jaychou.entity.vo.ResponseVO@1aa3880c]
 2025-05-08 15:29:41 [DEBUG][org.springframework.web.servlet.DispatcherServlet][logResult][1131]-> Completed 200 OK
@@ -3744,7 +3744,7 @@ javax.validation.ConstraintViolationException: register.registerPassword: 需要
 2025-05-08 15:32:04 [DEBUG][org.springframework.web.servlet.DispatcherServlet][logResult][1131]-> Completed 200 OK
 2025-05-08 15:33:02 [DEBUG][org.springframework.web.servlet.DispatcherServlet][traceDebug][120]-> GET "/web/account/checkCode", parameters={}
 2025-05-08 15:33:02 [DEBUG][org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping][getHandler][522]-> Mapped to com.jaychou.web.controller.AccountController#checkCode()
-2025-05-08 15:33:02 [ERROR][com.jaychou.config.RedisUtils][setex][79]-> 设置redisKey:konghub:checkCode:86f5524d-1270-47f3-99a5-68e27d8ddfef,value:16失败
+2025-05-08 15:33:02 [ERROR][com.jaychou.utils.RedisUtils][setex][79]-> 设置redisKey:konghub:checkCode:86f5524d-1270-47f3-99a5-68e27d8ddfef,value:16失败
 2025-05-08 15:33:02 [DEBUG][org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor][writeWithMessageConverters][268]-> Using 'application/json;q=0.8', given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, application/signed-exchange;v=b3;q=0.7, */*;q=0.8] and supported [application/json, application/*+json, application/json, application/*+json, application/x-jackson-smile, application/cbor]
 2025-05-08 15:33:02 [DEBUG][org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor][traceDebug][120]-> Writing [com.jaychou.entity.vo.ResponseVO@e384a79]
 2025-05-08 15:33:02 [DEBUG][org.springframework.web.servlet.DispatcherServlet][logResult][1131]-> Completed 200 OK
@@ -4930,7 +4930,7 @@ javax.validation.ConstraintViolationException: register.registerPassword: 需要
 2025-05-08 15:37:24 [DEBUG][io.netty.buffer.AbstractByteBuf][<clinit>][63]-> -Dio.netty.buffer.checkAccessible: true
 2025-05-08 15:37:24 [DEBUG][io.netty.buffer.AbstractByteBuf][<clinit>][64]-> -Dio.netty.buffer.checkBounds: true
 2025-05-08 15:37:24 [DEBUG][io.netty.util.ResourceLeakDetectorFactory][newResourceLeakDetector][196]-> Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@33235075
-2025-05-08 15:37:24 [ERROR][com.jaychou.config.RedisUtils][setex][79]-> 设置redisKey:konghub:checkCode:b23bc007-07a0-473e-8021-0b32b0e4b21a,value:13失败
+2025-05-08 15:37:24 [ERROR][com.jaychou.utils.RedisUtils][setex][79]-> 设置redisKey:konghub:checkCode:b23bc007-07a0-473e-8021-0b32b0e4b21a,value:13失败
 2025-05-08 15:37:24 [DEBUG][org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor][writeWithMessageConverters][268]-> Using 'application/json;q=0.8', given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, application/signed-exchange;v=b3;q=0.7, */*;q=0.8] and supported [application/json, application/*+json, application/json, application/*+json, application/x-jackson-smile, application/cbor]
 2025-05-08 15:37:24 [DEBUG][org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor][traceDebug][120]-> Writing [com.jaychou.entity.vo.ResponseVO@6aec37b1]
 2025-05-08 15:37:24 [DEBUG][org.springframework.web.servlet.DispatcherServlet][logResult][1131]-> Completed 200 OK

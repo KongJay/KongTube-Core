@@ -1,6 +1,6 @@
 package com.jaychou.component;
 
-import com.jaychou.config.RedisUtils;
+import com.jaychou.utils.RedisUtils;
 import com.jaychou.entity.constants.Constants;
 import com.jaychou.entity.dto.TokenUserInfoDto;
 import org.springframework.stereotype.Component;
@@ -45,7 +45,16 @@ public class RedisComponent {
         redisUtils.setex(Constants.REDIS_KEY_TOKEN_WEB + token, tokenUserInfoDto, Constants.REDIS_KEY_EXPIRES_ONE_DAY * DAY_NUMBER);
     }
 
-    public TokenUserInfoDto getTokenUserInfo(String token) {
+    public TokenUserInfoDto getTokenInfo(String token) {
         return (TokenUserInfoDto)redisUtils.get(Constants.REDIS_KEY_TOKEN_WEB + token);
     }
+    public String saveTokenInfo4Admin(String account) {
+            String token = UUID.randomUUID().toString();
+            redisUtils.setex(Constants.REDIS_KEY_TOKEN_ADMIN + token, account, Constants.REDIS_KEY_EXPIRES_ONE_DAY);
+            return token;
+    }
+    public String getTokenInfo4Admin(String token) {
+        return (String)redisUtils.get(Constants.REDIS_KEY_TOKEN_ADMIN + token);
+    }
+
 }

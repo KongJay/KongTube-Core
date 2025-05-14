@@ -87,14 +87,29 @@ public class ABaseController {
     }
 
     protected void saveToken2Cookies(HttpServletResponse response, String token) {
-        Cookie cookie = new Cookie(Constants.TOKEN_WEB, token);
+        Cookie cookie = new Cookie(Constants.TOKEN_ADMIN, token);
         cookie.setPath("/");
-        cookie.setMaxAge(Constants.TIME_SECONDS_DAY * DAY_NUMBER);
+        cookie.setMaxAge(-1);
         response.addCookie(cookie);
     }
-    protected TokenUserInfoDto getTokenUserInfoDto() {
+    protected TokenUserInfoDto getTokenInfoDto() {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String token = request.getHeader(Constants.TOKEN_WEB);
-        return redisComponent.getTokenUserInfo(token);
+        return redisComponent.getTokenInfo(token);
+    }
+    protected void cleanCookies(HttpServletResponse response) {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        Cookie[] cookies = request.getCookies();
+        if(cookies == null){
+            return;
+        }
+        for (Cookie cookie : cookies) {
+            if(cookie.getName().equals(Constants.TOKEN_ADMIN)){
+                redisComponent.cleanCheckCode(cookie.getValue());
+                cookie.setMaxAge(0);
+                cookie.setPath("/");
+                response.addCookie(cookie);
+            }
+        }
     }
 }
